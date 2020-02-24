@@ -1,0 +1,36 @@
+#canvas {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+audio {
+  position: fixed;
+  left: 10px;
+  bottom: 10px;
+  width: 95vw;
+  opacity: 0.1;
+}
+
+#audiofile {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  z-index: 100;
+  color: #FFFFFF;
+  border-radius: 5px;
+  border-style: solid;
+  border: "#FFF";
+
+}
+
+#audiofile:hover {
+  background-color: #000;
+}
+
+audio:hover {
+  opacity: 0.9;
+  transition: all 0.6s ease-in-out;
+}

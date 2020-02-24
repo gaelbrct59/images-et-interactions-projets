@@ -1,0 +1,48 @@
+/**
+ *
+ * Vector
+ *
+ *  */
+class Vector {
+  constructor(x,y) {
+    this.x=x;
+    this.y=y;
+  }
+
+  setRandInt(p1,p2)
+  {
+    this.x = randInt(p1.x,p2.x);
+    this.y = randInt(p1.y,p2.y);
+  }
+
+  setXY(x,y)
+  {
+    this.x = x;
+    this.y = y;
+  }
+
+  getDistance(p1)
+  {
+    return Math.sqrt((Math.pow(p1.x - this.x,2)+(Math.pow(p1.y - this.y,2))));
+  }
+
+  sum(p1)
+  {
+    return new Vector(this.x+p1.x,this.y+p1.y);
+  }
+
+  sub(p1)
+  {
+    return new Vector(this.x-p1.x,this.y-p1.y);
+  }
+
+  scal(p1)
+  {
+    return (this.x*p1.x)+(this.y*p1.y);
+  }
+
+  normalize()
+  {
+    return Math.sqrt(Math.pow(this.x,2)+Math.pow(this.y,2));
+  }
+};
