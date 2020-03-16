@@ -26,11 +26,44 @@ audio {
 
 }
 
-#audiofile:hover {
-  background-color: #000;
-}
-
 audio:hover {
   opacity: 0.9;
   transition: all 0.6s ease-in-out;
+}
+
+.btnCanvas{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  float: right;
+
+}
+#samuel{
+  background-color: #240A39;
+}
+#atom{
+  background-color: #33CCCC;
+}
+#rabox{
+  background-color: #FFA500;
+}
+Button{
+  border: solid;
+  border-color: #000;
+  color: #FFF;
+  text-align: center;
+  text-decoration: none;
+  font-size: 2.5vmin;
+  border-radius: 7px;
+  min-height: 20px;
+
+}
+Button:hover{
+  background-color: #33CCCC;
+  cursor: pointer;
+  border: solid;
+  border-color: #FFF;
+  content: 'Text affiche lors du hover';
+  transition: 1s;
 }

@@ -36,13 +36,12 @@ class Vector {
     return new Vector(this.x-p1.x,this.y-p1.y);
   }
 
-  scal(p1)
-  {
-    return (this.x*p1.x)+(this.y*p1.y);
-  }
+  middle(p1){						//Calcul le milieu d'un segement
+   return new Vector((this.x+p1.x)/2,(this.y+p1.y)/2);
+ }
 
-  normalize()
-  {
-    return Math.sqrt(Math.pow(this.x,2)+Math.pow(this.y,2));
-  }
+ centerRect(){
+   return new Vector(this.min.middle(this.max));
+ }
+
 };

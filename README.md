@@ -37,6 +37,10 @@ Détails sur les visualizers
 * L'utilisateur peut placer sa souris sur le canvas, ce qui créera des liens entre les atomes assez proches, et la souris de l'utilisateur.
 * La vitesse des atomes dépend de la fréquence de la musique, ce qui implique qu'au moment où la musique est rapide, tous les atoms bougent plus rapidement, et les liens entre eux créent une masse informe, qui rend un effet visuel cool.
 
+3) ParticuleExplosion
+* Ici l'idée était de reprendre ce qu'on avait fait au projet précedent lors des 3 premiers TP. Nous avons donc gardé les particules.
+* Nous avons rajouté à cela un cercle dynamique, il est composé de plusieurs traits, où leurs taille augmente en fonction de la frequence de la musique, chaque trait est reservé à une fréquence en particulier.
+* La vitesse des particules varie en fonction de la fréquence de la musique. 
 
 Notes de conception
 -------------------

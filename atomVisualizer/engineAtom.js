@@ -3,7 +3,7 @@
  *
  * */
 
-
+var anim;
 var randInt=function(a,b) {
 	return Math.floor(Math.random()*(b-a)+a);
 }
@@ -47,7 +47,9 @@ class EngineAtom {
 		this.drawNeighbourMouse();
 
   }
-
+	stopAnimation(){
+		window.cancelAnimationFrame(anim);
+	}
   updateData() {
 		this.music.updateAtom();
     this.atom.update();
@@ -95,7 +97,7 @@ class EngineAtom {
     this.time+=this.deltaTime;
     this.updateData();
     this.draw();
-    window.requestAnimationFrame(this.loop.bind(this));
+    anim = window.requestAnimationFrame(this.loop.bind(this));
 }
 
   start() {

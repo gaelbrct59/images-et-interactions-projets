@@ -3,7 +3,7 @@
  *
  * */
 
-
+var anim;
 var randInt=function(a,b) {
 	return Math.floor(Math.random()*(b-a)+a);
 }
@@ -52,7 +52,7 @@ class Engine {
     ctx.clearRect(0,0,canvas.width,canvas.height);
 		ctx.strokeStyle = "black";
 		ctx.fillStyle = "black";
-		ctx.fillRect(0,0,canvas.width,canvas.height)
+		ctx.fillRect(0,0,canvas.width,canvas.height);
     this.foxes.draw();
     this.rabbits.draw();
   }
@@ -64,12 +64,14 @@ class Engine {
     this.foxes.update();
     this.rabbits.update();
   }
-
+	stopAnimation(){
+		window.cancelAnimationFrame(anim);
+	}
   loop() {
     this.time+=this.deltaTime;
     this.updateData();
     this.draw();
-    window.requestAnimationFrame(this.loop.bind(this));
+    anim = window.requestAnimationFrame(this.loop.bind(this));
 }
 
   start() {
