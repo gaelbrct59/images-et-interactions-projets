@@ -1,8 +1,4 @@
-/**
- *
- *
- * */
- var anim;
+var anim;
 
 var randInt=function(a,b) {
 	return Math.floor(Math.random()*(b-a)+a);
@@ -39,22 +35,9 @@ class EngineParticule {
 		window.cancelAnimationFrame(anim);
 	}
   draw() {
-	/*var v = new Vector(0,0);
-	var x,y;
-    v.setRandInt(new Vector(100,150),new Vector(200,250));
-	ctx.clearRect(0,0,500,500);
-	ctx.fillRect(v.x,v.y,150,150);
-	ctx.fillStyle = 'red';*/
 	var hauteur = window.innerHeight;
 	var largeur = window.innerWidth;
 	ctx.clearRect(0,0,largeur,hauteur);
-
-	//Pour voir le centre du generator box
-	//ctx.beginPath();
-	//ctx.arc(this.generatorBox.min.middle(this.generatorBox.max).x,this.generatorBox.min.middle(this.generatorBox.max).y,2,0,2*Math.PI);
-	//ctx.fillStyle = "red";
-	//ctx.fill();
-	//console.table(this.generatorBox.min.middle(this.generatorBox.max));
 
 	this.particleManager.draw();
 	this.obstacleManager.draw();
@@ -62,7 +45,6 @@ class EngineParticule {
   }
 
   updateData() {
-	//this.force();
 	this.motion();
 	this.collision();
     this.particleManager.update();
@@ -87,9 +69,6 @@ class EngineParticule {
 	this.particleManager.all.forEach(particle => {
 		var v_x_new = particle.velocity.x;  //plus tard
 		var v_y_new = particle.velocity.y;
-
-		//var v_x_new = particle.velocity.x + a_x_new * this.deltaTime;
-		//var v_y_new = particle.velocity.y + a_y_new * this.deltaTime;
 
 		var x_new = particle.position.x + particle.velocity.x * this.deltaTime;
 		var y_new = particle.position.y + particle.velocity.y * this.deltaTime;

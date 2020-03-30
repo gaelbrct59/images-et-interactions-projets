@@ -11,10 +11,23 @@ var musique = null;
 var eventMouseMove = false;
 var eventMouseDown = false;
 var engine=null;
+var badaboum = document.getElementById("badaboum");
+var cyc1 = document.getElementById("cyc1");
+var clap = document.getElementById("clap");
+var bass = document.getElementById("bass");
+var cym = document.getElementById("cym");
+var bass2 = document.getElementById("bass2");
+var kick1 = document.getElementById("kick1");
+var kick2 = document.getElementById("kick2");
+var pearl = document.getElementById("pearlpiccolo");
+var fx1 = document.getElementById("FX1");
+var fx2 = document.getElementById("FX2");
+var fx3 = document.getElementById("FX3");
 
 btnRabox.addEventListener("click",mainRabox);
 btnAtom.addEventListener("click",mainAtom);
 btnParticule.addEventListener("click",mainParticuleSam);
+window.addEventListener("keydown", createMusic);
 window.addEventListener("load",mainAtom);
 
 function initCanvas() {
@@ -22,6 +35,77 @@ function initCanvas() {
     engine.stopAnimation();
   }
 
+}
+
+function analyzerStop(){
+    engine.music.context = null;
+    // engine.music.analyser = null;
+    engine.music.src = undefined;
+
+}
+
+
+function createMusic(e) {
+  analyzerStop();
+
+  switch (e.key.toLowerCase()) {
+    case 'o':
+      playInstrument(badaboum);
+      break;
+    case 'a':
+      playInstrument(cyc1);
+      break;
+    case 'z':
+      playInstrument(bass);
+      break;
+    case 'e':
+      playInstrument(clap);
+      break;
+    case 'r':
+      playInstrument(cym);
+      break;
+    case 't':
+      playInstrument(bass2);
+      break;
+    case 'y':
+      playInstrument(kick2);
+      break;
+    case 'u':
+      playInstrument(kick1);
+      break;
+    case 'i':
+      playInstrument(pearl);
+      break;
+      case 'q':
+        playInstrument(fx1);
+        break;case 's':
+          playInstrument(fx2);
+          break;case 'd':
+            playInstrument(fx3);
+            break;
+    default:
+
+  }
+}
+
+function playInstrument(instrument) {
+
+
+
+  engine.music.audio = instrument;
+  if (engine.music.src != null) {
+    engine.music.context.disconnect();
+    engine.music.analyser.disconnect();
+    engine.music.src.disconnect();
+  }
+  engine.music.init();
+
+
+  //
+  // instrument.play();
+  if(instrument.currentTime > 0){
+    instrument.currentTime = 0;
+  }
 }
 
 function mainRabox() {
@@ -99,6 +183,7 @@ function mainAtom() {
       engine.music.rabbits = null;
     }
     engine.start();
+
 }
 function handleMouseMove(event) {
   // get the mouse relative to canvas
@@ -127,7 +212,9 @@ function handleMouseDown(event) {
 file.onchange = function()
 {
   var files = this.files;
+  // console.log(files[0]);
   audio.src = URL.createObjectURL(files[0]);
+  // console.log(URL.createObjectURL(files[0]));
   engine.music.audio = audio;
   engine.music.init();
 }

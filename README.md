@@ -41,6 +41,8 @@ Détails sur les visualizers
 * Ici l'idée était de reprendre ce qu'on avait fait au projet précedent lors des 3 premiers TP. Nous avons donc gardé les particules.
 * Nous avons rajouté à cela un cercle dynamique, il est composé de plusieurs traits, où leurs taille augmente en fonction de la frequence de la musique, chaque trait est reservé à une fréquence en particulier.
 * La vitesse des particules varie en fonction de la fréquence de la musique. 
+* Detail d'execution : nous avons vue que lors de l'execution, si notre PC n'est pas "Performant" le fait de génerer beaucoup de particules, fait ralentir l'image.
+* Si cela arrive il faut remplacer dans ../particuleVisualizer/ii2d_particle.js la valeur de la ligne "this.birthRate = 5;".
 
 Notes de conception
 -------------------

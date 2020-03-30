@@ -1,10 +1,15 @@
 
 var width = window.innerWidth;
 var height = window.innerHeight;
+var wm = new WeakMap();
+var context;
+var analyser;
+
 class MusicManager
 {
     constructor(foxes,rabbits)
     {
+      this.MEDIA_ELEMENT_NODES = new WeakMap();
       this.foxes = foxes;
       this.rabbits = rabbits;
       this.audio = null;
@@ -19,55 +24,91 @@ class MusicManager
       this.processor = null;
       this.speed = 0;
   	  this.totalTime = 0;
-    }
+      this.initialized = false;
 
+    }
+    initAudioContext(){
+      context = new (AudioContext || webkitAudioContext)();
+      analyser = context.createAnalyser();
+    }
     init()
     {
-      this.context = new AudioContext();
+
+      if (!this.initialized){
+        this.initAudioContext();
+        this.initialized = true;
+      }
+
+
+
       this.audio.load();
       this.audio.play();
-      this.src = this.context.createMediaElementSource(this.audio);
-      this.analyser = this.context.createAnalyser();
+      // this.src = this.context.createMediaElementSource(this.audio);
 
-      this.src.connect(this.analyser);
-      this.analyser.connect(this.context.destination);
+      if (wm.has(this.audio)) {
+        // if (this.oldsrc != null){
+        //   this.oldsrc.disconnect();
+        // }
 
-      this.analyser.fftSize = this.fft;
+        this.src = wm.get(this.audio);
+        // if(this.src != this.oldsrc){
+        //
+        //
+        //   this.analyser.connect(this.context.destination);
+        //   console.log("on est la");
+        //   this.src.connect(this.analyser);
+        // }
+        // this.src.connect(this.analyser);
+        // this.analyser.connect(this.context.destination);
 
-      this.bufferLength = this.analyser.frequencyBinCount;
-      this.dataArray = new Uint8Array(this.bufferLength);
-      this.audio.play();
-      this.totalTime = Math.ceil(this.audio.duration);
-    }
-
-    initMicro()
-    {
-      this.context = new AudioContext();
-      this.src = this.context.createMediaStreamSource(stream);
-      this.analyser = this.context.createAnalyser();
-
-      this.analyser.fftSize = this.fftSize;
-      this.src.connect(this.analyser);
+      } else {
+        this.src = context.createMediaElementSource(this.audio);
+        wm.set(this.audio, this.src);
+      }
+      this.src.connect(analyser);
+      analyser.connect(context.destination);
+      analyser.fftSize = this.fft;
 
       this.bufferLength = analyser.frequencyBinCount;
-      this.dataArray = new Uint8Array(bufferLength);
-
-      // this.processor = this.context.createScriptProcessor(1024, 1, 1);
-      // this.src.connect(this.processor);
+      this.dataArray = new Uint8Array(this.bufferLength);
+      this.totalTime = Math.ceil(this.audio.duration);
 
 
-      // this.processor.connect(this.context.destination);
-      // processor.onaudioprocess = function(e) {
-      //    // Do something with the data, e.g. convert it to WAV
-      //    console.log(e.inputBuffer);
-      //  };
+
     }
+    switchAudio(newAudio){
+      // if(this.src){
+      //   this.src.disconnect();
+      // }
+      // this.audio.load();
+      // this.audio.play();
+      // // this.src = this.context.createMediaElementSource(this.audio);
+      // if (wm.has(this.audio)) {
+      //   this.src = wm.get(this.audio);
+      // } else {
+      //   this.src = this.context.createMediaElementSource(this.audio);
+      //   wm.set(this.audio, this.src);
+      // }
+      //
+      // this.analyser = this.context.createAnalyser();
+      //
+      // this.src.connect(this.analyser);
+      // this.analyser.connect(this.context.destination);
+      //
+      // this.analyser.fftSize = this.fft;
+      //
+      // this.bufferLength = this.analyser.frequencyBinCount;
+      // this.dataArray = new Uint8Array(this.bufferLength);
+      // this.audio.play();
+      // this.totalTime = Math.ceil(this.audio.duration);
+    }
+
 
 //update de Samuel
     update() {
       this.time += this.deltaTime;
       	if(this.dataArray != null){
-        	this.analyser.getByteFrequencyData(this.dataArray);
+        	analyser.getByteFrequencyData(this.dataArray);
 			this.foxes.all.forEach(particule =>
         	{
 				var new_deltaTime = this.deltaTime + (( average(this.dataArray))/200);
@@ -89,7 +130,7 @@ class MusicManager
         this.time += this.deltaTime;
         if(this.dataArray != null)
         {
-          this.analyser.getByteFrequencyData(this.dataArray);
+          analyser.getByteFrequencyData(this.dataArray);
           var i = 0;
           this.rabbits.rabbits.forEach(rabbit =>
           {
@@ -124,7 +165,7 @@ class MusicManager
       this.time += this.deltaTime;
       if(this.dataArray != null)
       {
-        this.analyser.getByteFrequencyData(this.dataArray);
+        analyser.getByteFrequencyData(this.dataArray);
         this.foxes.atoms.forEach(atom => {
 
           var new_deltaTime = this.deltaTime + ((average(this.dataArray)+1)/30)
@@ -147,7 +188,7 @@ class MusicManager
       this.time += this.deltaTime;
           	if(this.dataArray != null){
 
-    			this.analyser.getByteFrequencyData(this.dataArray);
+    		analyser.getByteFrequencyData(this.dataArray);
     			var circleRadius = canvas.height/10;
     			var frequencyWidth = ((2*Math.PI)/this.bufferLength);
 
@@ -156,7 +197,7 @@ class MusicManager
     			for(var increment = 0; increment < this.bufferLength; increment+=4){  // ou increment+=10
 
 	    			frequencyHeight = this.dataArray[increment] * (canvas.height * 0.0008);
-	
+
 	    			if(this.dataArray[increment] >0 && this.dataArray[increment] < 40){		//violet
 	    				var r = 162;
 	    		       	var g = 0;
@@ -192,26 +233,26 @@ class MusicManager
 	    		       	var g = 19;
 	    		       	var b = 0;
 	    			}
-	
+
 	    			ctx.beginPath();
 	    			var ax = canvas.width/2 + (circleRadius*Math.cos(x*1000));
 	    			var ay = canvas.height/2 + (circleRadius*Math.sin(x*1000));
-	
+
 	    			var bx = canvas.width/2 + ((circleRadius+frequencyHeight)*Math.cos(x*1000));
 	    			var by = canvas.height/2 + ((circleRadius+frequencyHeight)*Math.sin(x*1000));
-	
+
 	    			ctx.moveTo(ax,ay);
 	    			ctx.lineTo(bx,by);
-	    			//ctx.lineWidth = 5; 
+	    			//ctx.lineWidth = 5;
 	    			ctx.strokeStyle ="rgb(" + r + "," + g + "," + b + ")";
 	    			ctx.stroke();
-	    			
+
 	    			var currentTime = Math.ceil(document.getElementById('audio').currentTime);
 	    			ctx.beginPath();
 	    			ctx.arc(canvas.width/2, canvas.height/2, circleRadius-10, -0.5*Math.PI, -0.5*Math.PI+(((2*Math.PI)/this.totalTime)*currentTime),false);
 	    			// ctx.lineWidth = 10;
 	    			ctx.stroke();
-	
+
 	    			x += (2*Math.PI)/(this.bufferLength);
     			}
     		}

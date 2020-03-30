@@ -1,19 +1,10 @@
-/**
- *
- *
- *
- * */
-
-
 class GeneratorBox {
   constructor() {
     this.nbBirth=500;
-    this.birthRate= 10;
+    this.birthRate= 10; // Remplacer ICI, si l'image est ralentie : this.birthRate = 5
 	this.min = new Vector(50,50);
 	this.max = new Vector(150,150);
 	this.longevite = 300;
-	//this.minVelocity = new Vector(1,1);
-	//this.maxVelocity = new Vector(,1);
 	this.particleManager = new ParticleManager();
 	ctx.beginPath();
 }
@@ -33,8 +24,6 @@ class GeneratorBox {
 	p.color.g = randInt(0,255);
 	p.color.b = randInt(0,255);
 	p.lifeTime = this.longevite;
-	//p.velocity.x = randInt(this.minVelocity.x, this.maxVelocity.x);
-	//p.velocity.y = randInt(this.minVelocity.y, this.maxVelocity.y);
 	p.taille = randInt(0.5,3);
 
 	var middle = this.min.middle(this.max);
@@ -84,7 +73,7 @@ class Particle {
 	this.color = {r:0,g:0,b:0,a:1};
 	this.isAlive = false;
 	this.lifeTime;
-	this.velocity = new Vector(10,10); //ici que j'ai modifié --> new Vector(50,50)
+	this.velocity = new Vector(10,10); 
 	this.oldPosition = new Vector(0,0);
 	this.oldVelocity = new Vector(0,0);
 	this.taille;
@@ -92,20 +81,13 @@ class Particle {
   }
 
   draw() {
-	//var dim = randInt(0.5,8);
-	//ctx.fillStyle = 'rgba('+ this.color.r +','+ this.color.g +','+ this.color.b +','+ this.color.a +')';
 	ctx.beginPath();
       ctx.arc(this.position.x, this.position.y, this.taille, 0, 2 * Math.PI);
       ctx.fillStyle = 'rgba('+ this.color.r +','+ this.color.g +','+ this.color.b +','+ this.color.a +')';
       ctx.fill();
-	//ctx.fillRect(this.position.x,this.position.y,5,5);
+
   }
   motion(x,y,v_x,v_y){
-	//this.oldPosition.x = this.position.x;
-	//this.oldPosition.y = this.position.y;
-
-	//this.oldVelocity.x = this.velocity.x;
-	//this.oldVelocity.y = this.velocity.y;
 
 	this.position.x = x;
 	this.position.y = y;
@@ -117,7 +99,7 @@ class Particle {
 
 class ParticleManager {
   constructor() {
-	//this.generator = new GeneratorBox();
+
 	this.generatorList =[];
     this.all=[];
     this.nbAliveMax=10000;
@@ -138,7 +120,7 @@ class ParticleManager {
 		 	genDist = generator.distance(m);
 		 if (genDist >= generator.distance(m)){
 			genDist = generator.distance(m);
-		 	//var gen = this.generatorList[generator];
+
 			this.selected = generator;
 		 }
 	  });
