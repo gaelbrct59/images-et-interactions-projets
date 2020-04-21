@@ -1,27 +1,21 @@
-Groupe :
-========
-
-- BRICOUT Gaël
-- LIMENTOUR Gaëtan
-- LEBAS Samuel
-- BEAREZ Antoine
-
 Objectif
 --------
 
 Dans le cadre de notre deuxième projet en II2D, nous avons dû réaliser un brainstorming afin d'essayer de trouver une idée en rapport avec l'Interaction Homme Machine.
-Nous allons tâcher de faire en sorte que chacuns des audio visualizers soient interractifs.
+
 Après de nombreuses idées, nous avons choisi de créer une application qui interagit avec la musique, notamment, et, réagit à la musiques (par exemple aux basses, aux aigus, …), etenfin qui créé de la musique, selon les envies de l’utilisateur.
 
 
-Mise en oeuvre du TP
---------------------
+Mise en oeuvre 
+---------------
 
-TP en cours
-2 visualizers terminés. Nous finalisons le troisième, et nous passons au createur de musique.
+Tous les visualizers sont terminés. Gaël s'est occupé de l'atomVisualizer, de la création de musique.
+Gaëtan s'est occupé du deuxieme visualizer (RaboxVisualizer) et Samuel du dernier (particuleVisualizer)
 
 Instructions
 ------------
+
+Pour créer des notes : cliquer sur les touches a, z, e, r, t, y, u, i, o, q, s, d 
 
 Détails sur les visualizers
 ---------------------------
